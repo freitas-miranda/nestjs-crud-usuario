@@ -3,6 +3,9 @@ import { pathsToModuleNameMapper } from 'ts-jest';
 import { compilerOptions } from './../tsconfig.json';
 
 export const configBase = {
+  passWithNoTests: true,
+  verbose: false,
+  detectOpenHandles: true,
   moduleFileExtensions: ['js', 'json', 'ts'],
   testRegex: '.*\\.spec\\.ts$',
   transform: {
