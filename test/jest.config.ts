@@ -4,7 +4,7 @@ import { compilerOptions } from './../tsconfig.json';
 
 export const configBase = {
   passWithNoTests: true,
-  verbose: false,
+  verbose: true,
   detectOpenHandles: true,
   moduleFileExtensions: ['js', 'json', 'ts'],
   testRegex: '.*\\.spec\\.ts$',
