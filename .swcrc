@@ -1,20 +1,19 @@
 {
+    "sourceMaps": true,
     "jsc": {
-      "parser": {
-        "syntax": "typescript",
-        "tsx": false,
-        "decorators": true
-      },
       "target": "es2017",
       "keepClassNames": true,
+      "parser": {
+        "syntax": "typescript",
+        "decorators": true,
+        "dynamicImport": true,
+        "tsx": false
+      },
       "transform": {
         "legacyDecorator": true,
         "decoratorMetadata": true
       },
-      "baseUrl": "src"
+      "baseUrl": "./"
     },
-    "module": {
-      "type": "commonjs",
-      "noInterop": true
-    }
+    "minify": false
   }
