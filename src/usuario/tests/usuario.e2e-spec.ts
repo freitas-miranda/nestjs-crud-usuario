@@ -56,10 +56,29 @@ describe('/usuario (e2e)', () => {
       });
   });
 
-  it('[DELETE /usuario/:id] Deletar um usuario', () => {
+  it('[PATCH /usuario/:id] Alterar um usuário', async () => {
+    const nome = 'Novo nome';
+
+    // Processar a alteração do usuário
+    await request(app.getHttpServer())
+      .patch('/usuario/' + usuarioId)
+      .expect(200)
+      .send({ nome });
+
+    // Verificar se o nome foi alterado
     return request(app.getHttpServer())
-      .delete('/usuario/' + usuarioId)
-      .expect(200);
+      .get('/usuario/' + usuarioId)
+      .expect(200)
+      .then(({ body }) => {
+        expect(body).toBeDefined();
+        expect(body).toHaveProperty('id');
+        expect(body).toHaveProperty('nome');
+        expect(body.nome).toEqual(nome);
+      });
+  });
+
+  it('[DELETE /usuario/:id] Deletar um usuario', () => {
+    return request(app.getHttpServer()).delete('/usuario/1').expect(200);
   });
 
   afterAll(async () => {

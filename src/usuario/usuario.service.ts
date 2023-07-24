@@ -1,4 +1,4 @@
-import { pbkdf2, pbkdf2Sync, randomBytes } from 'node:crypto';
+import { pbkdf2Sync, randomBytes } from 'node:crypto';
 import { Injectable } from '@nestjs/common';
 import { CreateUsuarioDto } from './dto/create-usuario.dto';
 import { UpdateUsuarioDto } from './dto/update-usuario.dto';
@@ -40,7 +40,7 @@ export class UsuarioService {
   }
 
   update(id: number, updateUsuarioDto: UpdateUsuarioDto) {
-    return this.usuarioRepository.save({ id, updateUsuarioDto });
+    return this.usuarioRepository.save({ id, ...updateUsuarioDto });
   }
 
   remove(id: number) {

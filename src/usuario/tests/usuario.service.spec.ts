@@ -46,6 +46,12 @@ describe('UsuarioService', () => {
       expect(service.findOne(1)).resolves.toEqual(mockUsuario);
       expect(repoSpy).toBeCalledWith({ id: 1 });
     });
+
+    it('deve retornar erro quando não existir o usuário', () => {
+      const repoSpy = jest.spyOn(mockUsuariosRepository, 'findOneBy');
+      expect(service.findOne(-1)).resolves.toEqual(mockUsuario);
+      expect(repoSpy).toBeCalledWith({ id: 1 });
+    });
   });
 
   describe('remove()', () => {

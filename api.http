@@ -1,0 +1,27 @@
+# Usuário ---------------------------------------------
+### Listar usuários
+GET http://localhost:3000/usuario
+
+### Exibir usuário
+GET http://localhost:3000/usuario/16
+
+### Criar usuário
+POST http://localhost:3000/usuario
+Content-Type: application/json
+
+{
+  "nome": "Alan Miranda",
+  "email": "freitas.miranda@gmail.com",
+  "senha": "12345678"
+}
+
+### Alterar usuário
+PATCH http://localhost:3000/usuario/16
+Content-Type: application/json
+
+{
+  "nome": "Alan Freitas"
+}
+
+###  Deletar usuário
+DELETE http://localhost:3000/usuario/17
