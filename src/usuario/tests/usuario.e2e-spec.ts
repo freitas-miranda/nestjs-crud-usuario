@@ -51,7 +51,8 @@ describe('/usuario (e2e)', () => {
         expect(body).toHaveProperty('id');
         expect(body).toHaveProperty('nome');
         expect(body).toHaveProperty('email');
-        // expect(body).not.toHaveProperty('senhaHash');
+        expect(body).not.toHaveProperty('senhaHash');
+        expect(body).not.toHaveProperty('senhaSalt');
       });
   });
 

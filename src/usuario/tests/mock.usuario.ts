@@ -20,7 +20,7 @@ export const mockUsuariosService = {
   create: jest
     .fn()
     .mockImplementation((usuario: CreateUsuarioDto) =>
-      Promise.resolve({ id: '1', ...usuario }),
+      Promise.resolve({ id: 1, ...usuario }),
     ),
   findAll: jest.fn().mockResolvedValue(mockListUsuarios),
   findOne: jest.fn().mockImplementation((id: string) =>
@@ -29,5 +29,6 @@ export const mockUsuariosService = {
       id,
     }),
   ),
+  update: jest.fn(),
   remove: jest.fn(),
 };

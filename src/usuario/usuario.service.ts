@@ -27,8 +27,11 @@ export class UsuarioService {
     });
   }
 
-  findOne(id: number) {
-    return this.usuarioRepository.findOneBy({ id });
+  async findOne(id: number) {
+    const usuario = await this.usuarioRepository.findOneBy({ id });
+    delete usuario['senhaHash'];
+    delete usuario['senhaSalt'];
+    return usuario;
   }
 
   update(id: number, updateUsuarioDto: UpdateUsuarioDto) {
