@@ -1,6 +1,6 @@
 import { Config } from 'jest';
 import { pathsToModuleNameMapper } from 'ts-jest';
-import { compilerOptions } from './../tsconfig.json';
+import { compilerOptions } from './tsconfig.json';
 
 export const configBase = {
   passWithNoTests: true,
@@ -15,7 +15,7 @@ export const configBase = {
   collectCoverageFrom: ['**/*.(t|j)s'],
   coverageDirectory: '../coverage',
   testEnvironment: 'node',
-  rootDir: '../',
+  rootDir: './',
   moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, {
     prefix: '<rootDir>/',
   }),
