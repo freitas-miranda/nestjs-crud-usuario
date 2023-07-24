@@ -21,7 +21,7 @@ export class UsuarioService {
     usuario.nome = nome;
     usuario.email = email;
     usuario.senhaHash = hash;
-    usuario.senhaHash = salt;
+    usuario.senhaSalt = salt;
 
     return this.usuarioRepository.save(usuario);
   }
@@ -34,6 +34,8 @@ export class UsuarioService {
 
   async findOne(id: number) {
     const usuario = await this.usuarioRepository.findOneBy({ id });
+    if (!usuario) throw new Error('Usuário não encontrado com id: ' + id);
+
     delete usuario['senhaHash'];
     delete usuario['senhaSalt'];
     return usuario;

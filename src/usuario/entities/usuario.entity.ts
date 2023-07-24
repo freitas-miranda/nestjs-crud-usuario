@@ -14,7 +14,7 @@ export class Usuario {
   @Column()
   senhaHash: string;
 
-  @Column({ default: '123' })
+  @Column()
   senhaSalt: string;
 
   @Column({ default: true })

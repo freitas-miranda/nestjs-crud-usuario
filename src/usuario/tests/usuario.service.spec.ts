@@ -48,9 +48,10 @@ describe('UsuarioService', () => {
     });
 
     it('deve retornar erro quando não existir o usuário', () => {
-      const repoSpy = jest.spyOn(mockUsuariosRepository, 'findOneBy');
-      expect(service.findOne(-1)).resolves.toEqual(mockUsuario);
-      expect(repoSpy).toBeCalledWith({ id: 1 });
+      jest.spyOn(mockUsuariosRepository, 'findOneBy').mockReturnValue(null);
+      expect(async () => await service.findOne(-1)).rejects.toThrow(
+        new Error('Usuário não encontrado com id: -1'),
+      );
     });
   });
 
