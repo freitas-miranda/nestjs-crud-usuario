@@ -27,7 +27,9 @@ describe('UsuarioService', () => {
 
   describe('create()', () => {
     it('deve criar um usuário com sucesso', () => {
+      const spy = jest.spyOn(service, 'gerarSenha');
       expect(service.create(mockUsuario)).resolves.toEqual(mockUsuario);
+      expect(spy).toHaveBeenCalledWith(mockUsuario.senha);
     });
   });
 
@@ -52,6 +54,18 @@ describe('UsuarioService', () => {
       const retVal = await service.remove(2);
       expect(removeSpy).toBeCalledWith({ id: 2 });
       expect(retVal).toBeUndefined();
+    });
+  });
+
+  describe('gerarSenha()', () => {
+    it('deve gerar senha criptografada', () => {
+      const senhaAberta = '12345678';
+      const senha = service.gerarSenha(senhaAberta, '1234');
+      expect(senha).toBeDefined();
+      expect(senha).toEqual({
+        hash: 'c00b9e8d7b7603de1a467be5d12631883c0de4a5d02721f28740e6136f6ecaada0320f12ec549a4dd408cfc550871f9cbc273c3d890aaa6050c3b65fcb5dea08',
+        salt: '1234',
+      });
     });
   });
 });

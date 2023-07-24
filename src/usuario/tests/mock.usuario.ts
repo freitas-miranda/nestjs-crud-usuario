@@ -31,4 +31,5 @@ export const mockUsuariosService = {
   ),
   update: jest.fn(),
   remove: jest.fn(),
+  gerarSenha: jest.fn(),
 };

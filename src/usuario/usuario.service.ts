@@ -1,3 +1,4 @@
+import { pbkdf2, pbkdf2Sync, randomBytes } from 'node:crypto';
 import { Injectable } from '@nestjs/common';
 import { CreateUsuarioDto } from './dto/create-usuario.dto';
 import { UpdateUsuarioDto } from './dto/update-usuario.dto';
@@ -13,10 +14,14 @@ export class UsuarioService {
   ) {}
 
   create(createUsuarioDto: CreateUsuarioDto): Promise<Usuario> {
+    const { nome, email, senha } = createUsuarioDto;
+    const { hash, salt } = this.gerarSenha(senha);
+
     const usuario = new Usuario();
-    usuario.nome = createUsuarioDto.nome;
-    usuario.email = createUsuarioDto.email;
-    usuario.senhaHash = createUsuarioDto.senha;
+    usuario.nome = nome;
+    usuario.email = email;
+    usuario.senhaHash = hash;
+    usuario.senhaHash = salt;
 
     return this.usuarioRepository.save(usuario);
   }
@@ -40,5 +45,30 @@ export class UsuarioService {
 
   remove(id: number) {
     return this.usuarioRepository.delete({ id });
+  }
+
+  gerarSenha(senhaAberta: string, salt?: string) {
+    // Gera um salt aleatório de 20 bytes se não for informado
+    const generatedSalt = salt || randomBytes(20).toString('hex');
+
+    // Define o número de iterações para fortalecer o algoritmo
+    const iterations = 10000;
+
+    // Define o tamanho da chave gerada
+    const keyLength = 64;
+
+    // Aplica a função PBKDF2 para derivar a senha com o salt
+    const hashedPassword = pbkdf2Sync(
+      senhaAberta,
+      generatedSalt,
+      iterations,
+      keyLength,
+      'sha512',
+    ).toString('hex');
+
+    return {
+      hash: hashedPassword,
+      salt: generatedSalt,
+    };
   }
 }
